@@ -9,6 +9,7 @@ public class EndGame : MonoBehaviour
     
     GameStatus gameStatus;
     public int finalScore;
+
     [SerializeField] TextMeshProUGUI finalScoreText;
 
     void Start()
@@ -17,20 +18,26 @@ public class EndGame : MonoBehaviour
         GameObject.Find("UICanvas").GetComponent<Canvas>().enabled = false;
         Debug.Log("You scored: " + finalScoreText.text);
 
-        if (finalScore == 18)
+        if (finalScore == 21)
         {
             finalScoreText.text = "Crimbo saved Christmas that year. Every child found a present under the tree on Christmas morning and the day was filled with joy and fun. " +
             "Santa was so proud of little Crimbo that he made him Chief Present Controller.";
         }
-        else if (finalScore <= 17 && finalScore >= 14)
+        else if (finalScore <= 20 && finalScore >= 17)
         {
             finalScoreText.text = "Christmas was good that year. Still, it felt strangely like something was missing. But there were enough presents to unwrap on Christmas day that " +
             "everyone soon forgot that strange feeling and went on to thoroughly enjoy their Christmas. Well done, Crimbo.";
         }
-        else finalScoreText.text = "That year there was much dissapointment on Christmas morning. Dreams remained just that...dreams. And the promise of what Santa would deliver " +
+        else if (finalScore <= 16 && finalScore >= 4) 
+        {
+        finalScoreText.text = "That year there was much dissapointment on Christmas morning. Dreams remained just that...dreams. And the promise of what Santa would deliver " +
         "never materialised. Poor Crimbo had failed to save Christmas, and Santa banished him to work in a Chocolate Factory instead.";
-
-
+        }
+        else 
+        {
+        finalScoreText.text = "'You didn't even try to save Christmas, did you Crimbo?' Santa asked with dissapointment. Crimbo had proven to be utterly useless in his quest to save " +
+        " Christmas. 'You had ONE job!'. Crimbo was banished to the Black Wall, never to experience Christmas ever again";
+        }
     }
     public void LoadMainMenu()
     {
@@ -42,6 +49,7 @@ public class EndGame : MonoBehaviour
 
         FindObjectOfType<GameStatus>().StopMusic();
         FindObjectOfType<GameStatus>().score = 0;
+        FindObjectOfType<GameStatus>().timesUp = true;
         GameObject.Find("Score").GetComponent<TextMeshProUGUI>().text = "0";
         SceneManager.LoadScene("Menu");
 

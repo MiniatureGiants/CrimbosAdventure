@@ -7,6 +7,7 @@ public class LoadGame : MonoBehaviour
 {
 [SerializeField] AudioSource introMusic;
 
+public bool gameStarted;
 
 void Start() 
 {
@@ -17,7 +18,9 @@ public void StartGame()
 {
     introMusic.Stop();
     SceneManager.LoadScene("Level 1");
-    Debug.Log("Game Started");
+    gameStarted = true;
+    Debug.Log("Game Started - set timer");
+    FindObjectOfType<GameStatus>().timeLeft = 181;
 }
 
 public void PlayIntroMusic()
