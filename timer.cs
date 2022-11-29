@@ -8,6 +8,8 @@ public class timer : MonoBehaviour
 {
     public float countDown;
     [SerializeField] TextMeshProUGUI timerText;
+    [SerializeField] AudioSource timesAlmostUp;
+    public bool timesNearlyUp = false;
     void Start()
     {
         
@@ -53,9 +55,15 @@ public class timer : MonoBehaviour
 
         timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
 
-        if (minutes == 0 && seconds < 21)
+        if (minutes == 0 && seconds < 31)
         {
             timerText.color = new Color32(255, 35, 35, 255);
+            
+        }
+        if (minutes == 0 && seconds == 30 && timesNearlyUp == false)
+        {
+            timesNearlyUp = true;
+            timesAlmostUp.Play();
         }
 
      }

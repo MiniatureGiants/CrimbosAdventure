@@ -10,13 +10,25 @@ public class EndGame : MonoBehaviour
     GameStatus gameStatus;
     public int finalScore;
 
+    
+
     [SerializeField] TextMeshProUGUI finalScoreText;
+    [SerializeField] TextMeshProUGUI scoreBreakdown;
+
+    void Awake() 
+    {
+        
+    }
 
     void Start()
     {
         finalScore = FindObjectOfType<GameStatus>().score;
         GameObject.Find("UICanvas").GetComponent<Canvas>().enabled = false;
         Debug.Log("You scored: " + finalScoreText.text);
+        float timeRemaining = FindObjectOfType<GameStatus>().timeLeft;
+        float minutes = Mathf.FloorToInt(timeRemaining / 60);
+        float seconds = Mathf.FloorToInt(timeRemaining % 60);
+        
 
         if (finalScore == 21)
         {
@@ -38,6 +50,8 @@ public class EndGame : MonoBehaviour
         finalScoreText.text = "'You didn't even try to save Christmas, did you Crimbo?' Santa asked with dissapointment. Crimbo had proven to be utterly useless in his quest to save " +
         " Christmas. 'You had ONE job!'. Crimbo was banished to the Black Wall, never to experience Christmas ever again";
         }
+
+        scoreBreakdown.text = ("You found " + finalScore.ToString() + " presents and had " + string.Format("{0:00}:{1:00}", minutes, seconds) + " second left. Post your best time!");
     }
     public void LoadMainMenu()
     {
